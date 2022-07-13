@@ -9,9 +9,9 @@ class Box extends React.Component{
                 {this.props.icon}
             </span>
             <p> {this.props.value} {this.props.unit}</p>
-            { isWater && <input type="range" id="" name="" min="0" max="11"></input>} 
+            {isWater && <input type="range" onChange={this.props.change} step="1" value={this.props.value} min={this.props.min} max={this.props.max}></input>} 
         </div>
-    );
+        );
 }
 }
 
