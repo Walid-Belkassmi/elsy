@@ -10,9 +10,10 @@ class Box extends React.Component{
             </span>
             <p> {this.props.value} {this.props.unit}</p>
             {isWater && <input type="range" onChange={this.props.change} step="1" value={this.props.value} min={this.props.min} max={this.props.max}></input>} 
+            {this.props.icon === "direction_walk" && <input type="range" onChange={this.props.change} step="1000" value={this.props.value} min={this.props.min} max={this.props.max}></input> }
         </div>
         );
-}
+    }
 }
 
 export default Box

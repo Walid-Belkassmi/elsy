@@ -8,14 +8,14 @@ const tempMax = 40
 const heartMin = 80
 const heartMax = 180
 const stepsMin = 0
-const stepsMax = 5000
+const stepsMax = 50000
 
 class App extends React.Component {
   constructor(){
     super()
 
     this.state = {
-      water :0,
+      water : 0,
       heart : 120,
       temperature : -10,
       steps : 3000
@@ -23,18 +23,34 @@ class App extends React.Component {
   }
 
   onHeartChange = (e) => {
-    const point = e.target.value
-    this.setState({heart: point})
+    this.setState({heart: e.target.value})
+    this.calculateWater()
   }
 
   onStepsChange = (e) => {
-    const step = e.target.value
-    this.setState({steps:step})
+    this.setState({steps: e.target.value})
+    this.calculateWater()
   }
 
   onWeatherChange = (e) => {
-    const temp = e.target.value
-    this.setState({temperature:temp})
+    this.setState({temperature: e.target.value})
+    this.calculateWater()
+  }
+
+  calculateWater = () => {
+    let result = 1.5
+    if(this.state.temperature > 20){
+      result += (this.state.temperature - 20) * 0.02
+      this.setState({water: result.toFixed(2)})
+    }
+    if(this.state.heart > 120){
+      result += (this.state.heart - 120) * 0.0008
+      this.setState({water: result.toFixed(2)})
+    }
+    if(this.state.steps > 10000){
+      result += (this.state.steps - 10000) * 0.00002
+      this.setState({water: result.toFixed(2)})
+    }
   }
 
   render() {
@@ -45,7 +61,7 @@ class App extends React.Component {
           <Box 
             icon="local_drink" 
             color="#3A85FF" 
-            value={1.5} 
+            value={this.state.water} 
             unit="L"
           />
 
