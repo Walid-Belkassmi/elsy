@@ -23,34 +23,35 @@ class App extends React.Component {
   }
 
   onHeartChange = (e) => {
-    this.setState({heart: e.target.value})
-    this.calculateWater()
+    this.setState({heart: Number(e.target.value)}, () => {
+      this.calculateWater()
+    })
   }
 
   onStepsChange = (e) => {
-    this.setState({steps: e.target.value})
-    this.calculateWater()
+    this.setState({steps: Number(e.target.value)}, () => {
+      this.calculateWater()
+    })
   }
 
   onWeatherChange = (e) => {
-    this.setState({temperature: e.target.value})
-    this.calculateWater()
+    this.setState({temperature: Number(e.target.value)}, () => {
+      this.calculateWater()
+    })
   }
 
   calculateWater = () => {
     let result = 1.5
     if(this.state.temperature > 20){
       result += (this.state.temperature - 20) * 0.02
-      this.setState({water: result.toFixed(2)})
     }
     if(this.state.heart > 120){
       result += (this.state.heart - 120) * 0.0008
-      this.setState({water: result.toFixed(2)})
     }
     if(this.state.steps > 10000){
       result += (this.state.steps - 10000) * 0.00002
-      this.setState({water: result.toFixed(2)})
     }
+    this.setState({water: result.toFixed(2)})
   }
 
   render() {
